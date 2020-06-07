@@ -43,5 +43,3 @@ double fuzzyPrognosisMath::GaussBelongingFunction::GetMaxValue() const
 {
     return GetParam(0);  //b
 }
-
-
