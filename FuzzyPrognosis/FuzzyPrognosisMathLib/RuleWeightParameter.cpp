@@ -1,6 +1,6 @@
 #include "RuleWeightParameter.h"
 
-fuzzyPrognosisMath::RuleWeightParameter::RuleWeightParameter(fuzzyPrognosisMath::FuzzyRule *rule)
+fuzzyPrognosisMath::RuleWeightParameter::RuleWeightParameter(fuzzyPrognosisMath::FuzzyRule* rule)
     : m_rule(rule)
 {
 }
