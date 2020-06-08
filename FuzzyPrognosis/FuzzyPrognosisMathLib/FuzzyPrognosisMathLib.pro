@@ -3,8 +3,15 @@ CONFIG += staticlib
 
 HEADERS += \
     BelongingFunction.h \
-    GaussBelongingFunction.h
+    BelongingFunctionParameter.h \
+    FuzzyRule.h \
+    GaussBelongingFunction.h \
+    IFuzzyModelParameter.h \
+    RuleWeightParameter.h
 
 SOURCES += \
     BelongingFunction.cpp \
-    GaussBelongingFunction.cpp
+    BelongingFunctionParameter.cpp \
+    FuzzyRule.cpp \
+    GaussBelongingFunction.cpp \
+    RuleWeightParameter.cpp
