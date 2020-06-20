@@ -9,7 +9,10 @@ HEADERS += \
     GaussBelongingFunction.h \
     IFuzzyModelParameter.h \
     LinguisticTerms.h \
-    RuleWeightParameter.h
+    PeriodDependencies.h \
+    PeriodicalTrendFuzzyModel.h \
+    RuleWeightParameter.h \
+    TrendPrognosisFuzzyModel.h
 
 SOURCES += \
     BelongingFunction.cpp \
@@ -18,4 +21,7 @@ SOURCES += \
     FuzzyRule.cpp \
     GaussBelongingFunction.cpp \
     LinguisticTerms.cpp \
-    RuleWeightParameter.cpp
+    PeriodDependencies.cpp \
+    PeriodicalTrendFuzzyModel.cpp \
+    RuleWeightParameter.cpp \
+    TrendPrognosisFuzzyModel.cpp

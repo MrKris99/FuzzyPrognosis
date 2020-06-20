@@ -1,5 +1,6 @@
 TEMPLATE = subdirs
-SUBDIRS += FuzzyPrognosisGUI
+SUBDIRS += FuzzyPrognosisGUI \
+    FuzzyModelSerializationLib
 SUBDIRS += FuzzyPrognosisMathLib
 SUBDIRS += FuzzyPrognosisMathLibTest
 
