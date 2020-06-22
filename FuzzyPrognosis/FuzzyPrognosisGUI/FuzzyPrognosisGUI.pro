@@ -4,6 +4,7 @@ include(../conanbuildinfo.pri)
 
 SOURCES += \
     DependenciesDialog.cpp \
+    ModelTuningWorkerThread.cpp \
     TermsTableModel.cpp \
     TermsTableWidget.cpp \
     TrendTableModel.cpp \
@@ -14,6 +15,7 @@ SOURCES += \
 HEADERS += \
     DependenciesDialog.h \
     MainWindow.h \
+    ModelTuningWorkerThread.h \
     TermsTableModel.h \
     TermsTableWidget.h \
     TrendTableModel.h \

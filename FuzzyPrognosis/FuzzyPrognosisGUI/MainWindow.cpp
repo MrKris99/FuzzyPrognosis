@@ -8,7 +8,8 @@
 #include "TrendTableWidget.h"
 #include "TermsTableWidget.h"
 #include "DependenciesDialog.h"
-#include <iostream>
+#include "ModelTuningWorkerThread.h"
+
 
 namespace
 {
@@ -71,7 +72,13 @@ void MainWindow::CreateMenus()
     m_tuneMenu = menuBar()->addMenu(tr("Tune"));
     m_tuneMenu->addAction(tr("Do tune"), [this]()
     {
-        m_doc.Tune();
+        QDialog* dialog = new QDialog(this, Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
+        dialog->setWindowTitle(tr("Tuning model..."));
+        ModelTuningWorkerThread* worker = new ModelTuningWorkerThread(m_doc, this);
+        connect(worker, &ModelTuningWorkerThread::TuningFinished, dialog, &QDialog::close);
+        worker->start();
+        dialog->exec();
+        worker->deleteLater();
     });
     m_tuneMenu->addAction(tr("Prognosis chart after tune"), [this]()
     {
@@ -147,10 +154,12 @@ void MainWindow::ShowPrognosisChartAfterTune()
         seriesPrognosis->append(item + 1, model.GetPrognosisTrendItem(item));
     }
 
+    model.SetTerms(&m_doc.m_terms);
+    m_doc.SetWeightBefore();
+
     QChart* chart = new QChart();
-    chart->legend()->hide();
-    chart->addSeries(seriesReal);
     chart->addSeries(seriesPrognosis);
+    chart->addSeries(seriesReal);
     chart->setTitle(tr("Prognosis"));
     chart->createDefaultAxes();
     chart->axisY()->setMin(0);
@@ -200,7 +209,6 @@ void MainWindow::OpenDocument()
     }
     catch (const std::exception& ex)
     {
-        std::cout << ex.what();
         m_doc = document::FuzzyDoc();
         QMessageBox::critical(this, tr("Parsing error!"),
                               tr("Encountered unproper model serialization. Please check that the specified file is correct."));

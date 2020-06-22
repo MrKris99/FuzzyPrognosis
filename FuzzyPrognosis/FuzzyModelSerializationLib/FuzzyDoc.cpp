@@ -162,9 +162,9 @@ void document::FuzzyDoc::DeserializeModel(const std::string& filepath)
             const size_t outputTerm = ruleValue[g_outputTerm].asUInt();
             const size_t varCount = ruleValue[g_varTerms].size();
             auto fuzzyRule = new fuzzyPrognosisMath::FuzzyRule(varCount, outputTerm);
-            for (const auto& varTermValue: ruleValue[g_varTerms])
+            for (int var = 0; var < varCount; ++var)
             {
-                fuzzyRule->SetVarTerm(varTermValue.asUInt(), outputTerm);
+                fuzzyRule->SetVarTerm(var, ruleValue[g_varTerms][i].asUInt());
             }
             m_model.m_models[i]->AddRule(fuzzyRule);
         }
