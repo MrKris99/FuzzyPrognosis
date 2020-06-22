@@ -6,7 +6,6 @@ fuzzyPrognosisMath::TrendPrognosisFuzzyModel::TrendPrognosisFuzzyModel(size_t nV
     : FuzzyModel(nVarCount)
     , m_pTerms(nullptr)
 {
-
 }
 
 fuzzyPrognosisMath::IFuzzyModelParameter *fuzzyPrognosisMath::TrendPrognosisFuzzyModel::GetParameter(size_t nParameter) const
@@ -52,7 +51,7 @@ bool fuzzyPrognosisMath::TrendPrognosisFuzzyModel::HasRule(fuzzyPrognosisMath::F
     return std::find_if(m_rules.begin(), m_rules.end(), [pRule](FuzzyRule* val)
     {
         return *pRule == *val;
-    }) == m_rules.end();
+    }) != m_rules.end();
 }
 
 void fuzzyPrognosisMath::TrendPrognosisFuzzyModel::DeleteAllRules()
@@ -78,7 +77,7 @@ fuzzyPrognosisMath::LinguisticTerms* fuzzyPrognosisMath::TrendPrognosisFuzzyMode
 
 void fuzzyPrognosisMath::TrendPrognosisFuzzyModel::CalculateValues()
 {
-    m_output = 0;
+    m_output = 0.0;
     std::fill(m_outputTerms.begin(), m_outputTerms.end(), 0.0);
 
     for(auto rule : m_rules)

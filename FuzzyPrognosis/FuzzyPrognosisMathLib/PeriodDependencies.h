@@ -13,7 +13,7 @@ namespace fuzzyPrognosisMath
         void SetVarOffset(size_t nVar, size_t nOffset);
         size_t GetMaxOffset() const;
 
-    private:
+    public:
         std::vector<size_t> m_varConvertions;
     };
 }

@@ -10,7 +10,7 @@ fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::PeriodicalTrendFuzzyModel(size_t 
 
 void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::AutoGenerateRules()
 {
-    for(size_t i = 0; i < m_nPeriod;i++)
+    for(size_t i = 0; i < m_nPeriod; i++)
     {
         AutoGenerateRules(i);
     }
@@ -40,6 +40,11 @@ void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::AddRealDataItem(double item)
     m_realTrend.push_back(item);
 }
 
+void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::SetRealDataItem(size_t nItem, double dblValue)
+{
+    m_realTrend.at(nItem) = dblValue;
+}
+
 size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetRealTrendLength() const
 {
     return m_realTrend.size();
@@ -58,7 +63,7 @@ void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::AutoGenerateRules(size_t nPe
     {
         if((i % m_nPeriod) != nPeriodItem)
         {
-            return;
+            continue;
         }
 
         FuzzyRule* pNewRule = new FuzzyRule(nVarCount, m_models[nPeriodItem]->GetTermFor(GetRealDataItem(i)));
@@ -74,7 +79,7 @@ void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::AutoGenerateRules(size_t nPe
 
 double fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetParam(size_t param)
 {
-    return GetParamater(param)->GetValue();
+    return GetParameter(param)->GetValue();
 }
 
 size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetParamsCount()
@@ -84,7 +89,6 @@ size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetParamsCount()
 
 size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::Tune(fuzzyPrognosisMath::RAlgParams params)
 {
-
     Precalc();
 
     int K = 0;
@@ -225,7 +229,7 @@ m101:
 double fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::CalculateDerived(size_t param, double dblDelta)
 {
     dblDelta /= 10.0;
-    IFuzzyModelParameter* pParam = GetParamater(param);
+    IFuzzyModelParameter* pParam = GetParameter(param);
     const double savedVal = pParam->GetValue();
 
     if (GetParamType(param) == 2)
@@ -315,12 +319,12 @@ int fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetParamType(size_t param)
     }
 }
 
-size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetPrognosisTrendLength()
+size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetPrognosisTrendLength() const
 {
     return m_prognosisTrend.size();
 }
 
-double fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetPrognosisTrendItem(size_t nItem)
+double fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetPrognosisTrendItem(size_t nItem) const
 {
     if(nItem < GetFirstFullPeriodPrognosisItem())
     {
@@ -352,7 +356,7 @@ double fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetRealDataItem(size_t nIt
     return m_realTrend[nItem];
 }
 
-size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetFirstFullPeriodRealItem()
+size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetFirstFullPeriodRealItem() const
 {
     return m_nFirstFullPeriodItem;
 }
@@ -372,7 +376,7 @@ void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::SetRealTrendLength(size_t nL
     m_realTrend.resize(nLength);
 }
 
-size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetPeriod()
+size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetPeriod() const
 {
     return m_nPeriod;
 }
@@ -416,11 +420,11 @@ double fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetInputItem(size_t nIndex
 
 void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::IncParam(size_t param, double delta)
 {
-    IFuzzyModelParameter* pParam = GetParamater(param);
+    IFuzzyModelParameter* pParam = GetParameter(param);
     pParam->SetValue(pParam->GetValue() + delta);
 }
 
-fuzzyPrognosisMath::IFuzzyModelParameter* fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetParamater(size_t nParameter)
+fuzzyPrognosisMath::IFuzzyModelParameter* fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetParameter(size_t nParameter)
 {
     if (nParameter < m_belongingFunctionParameters.size())
     {
@@ -449,12 +453,12 @@ void fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::PrepareInputVector(size_t nI
     }
 }
 
-size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetFirstFullPeriodPrognosisItem()
+size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetFirstFullPeriodPrognosisItem() const
 {
     return ((GetItemsBeforeFirstFullPeriod() - GetFirstFullPeriodRealItem()) / GetPeriod() + 1) * GetPeriod();
 }
 
-size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetItemsBeforeFirstFullPeriod()
+size_t fuzzyPrognosisMath::PeriodicalTrendFuzzyModel::GetItemsBeforeFirstFullPeriod() const
 {
     size_t nRes = 0;
     for(size_t item = 0; item < m_dependencies.size(); item++)

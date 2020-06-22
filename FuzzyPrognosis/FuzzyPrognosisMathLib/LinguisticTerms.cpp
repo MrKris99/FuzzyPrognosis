@@ -4,19 +4,23 @@
 
 void fuzzyPrognosisMath::LinguisticTerms::AddTerm(const std::string &strName, fuzzyPrognosisMath::BelongingFunction* pBF)
 {
-    m_names.emplace_back(strName);
-    m_functions.emplace_back(pBF);
+    m_names.push_back(strName);
+    m_functions.push_back(pBF);
 }
 
 size_t fuzzyPrognosisMath::LinguisticTerms::GetTermFor(double x) const
 {
-    const auto maxMeasureIt = std::max_element(m_functions.begin(), m_functions.end(),
-        [x](BelongingFunction* left, BelongingFunction* right)
+    size_t nTerm = 0;
+    double dblBelongMeas = 0.0;
+    for(size_t term = 0; term < GetTermsCount(); term++)
+    {
+        if (GetTermBelongingFunction(term)->GetBelogningMeasure(x) > dblBelongMeas)
         {
-            return left->GetBelogningMeasure(x) < right->GetBelogningMeasure(x);
-        });
-
-    return std::distance(m_functions.begin(), maxMeasureIt);
+             dblBelongMeas = GetTermBelongingFunction(term)->GetBelogningMeasure(x);
+             nTerm = term;
+        }
+    }
+    return nTerm;
 }
 
 size_t fuzzyPrognosisMath::LinguisticTerms::GetTermsCount() const

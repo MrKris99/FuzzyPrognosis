@@ -44,5 +44,5 @@ size_t fuzzyPrognosisMath::FuzzyRule::GetVariablesCount() const
 
 bool fuzzyPrognosisMath::FuzzyRule::operator==(const fuzzyPrognosisMath::FuzzyRule& rule) const
 {
-    return m_nOutputTerm == rule.m_nOutputTerm && m_terms == rule.m_terms;
+    return (m_nOutputTerm == rule.m_nOutputTerm) && (m_terms == rule.m_terms);
 }

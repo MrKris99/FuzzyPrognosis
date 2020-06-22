@@ -1,7 +1,9 @@
 TEMPLATE = subdirs
-SUBDIRS += FuzzyPrognosisGUI \
-    FuzzyModelSerializationLib
-SUBDIRS += FuzzyPrognosisMathLib
-SUBDIRS += FuzzyPrognosisMathLibTest
+SUBDIRS += \
+    FuzzyPrognosisGUI \
+    FuzzyModelSerializationLib \
+    FuzzyPrognosisMathLib \
+    FuzzyPrognosisMathLibTest
 
 FuzzyPrognosisMathLibTest.depends = FuzzyPrognosisMathLib
+FuzzyPrognosisGUI.depends = FuzzyPrognosisMathLib FuzzyModelSerializationLib

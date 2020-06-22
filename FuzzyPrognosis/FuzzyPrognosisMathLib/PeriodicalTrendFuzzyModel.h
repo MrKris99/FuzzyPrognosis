@@ -53,27 +53,27 @@ namespace fuzzyPrognosisMath
         int GetParamNum(size_t param);
         int GetParamType(size_t param);
 
-        size_t GetPrognosisTrendLength();
-        double GetPrognosisTrendItem(size_t nIndex);
+        size_t GetPrognosisTrendLength() const;
+        double GetPrognosisTrendItem(size_t nIndex) const;
         void CalculatePrognosisTrend();
 
         double GetRealDataItem(size_t nItem) const;
-        size_t GetFirstFullPeriodRealItem();
+        size_t GetFirstFullPeriodRealItem() const;
         void SetFirstFullPeriodItem(size_t nItem);
         void SetPrognisisTrendLength(size_t nLength);
         void SetRealTrendLength(size_t nLength);
-        size_t GetPeriod();
+        size_t GetPeriod() const;
         void SetPeriod(size_t nPeriod);
 
     private:
         void GetGradient(double* G, double delta);
         double GetInputItem(size_t nIndex);
         void IncParam(size_t param, double delta);
-        IFuzzyModelParameter* GetParamater(size_t nParameter);
+        IFuzzyModelParameter* GetParameter(size_t nParameter);
         double CalculateModelforItem(size_t item, std::vector<double>& input);
         void PrepareInputVector(size_t nItem, std::vector<double>& input);
-        size_t GetFirstFullPeriodPrognosisItem();
-        size_t GetItemsBeforeFirstFullPeriod();
+        size_t GetFirstFullPeriodPrognosisItem() const;
+        size_t GetItemsBeforeFirstFullPeriod() const;
         size_t GetPeriodItemVarOffset(size_t nItem, size_t nVar);
     };
 }
